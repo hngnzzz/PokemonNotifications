@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Discord Pokemon Bot",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/discord-pokemon-bot/bot.py",
+      "cwd": "${workspaceFolder}/discord-pokemon-bot",
+      "envFile": "${workspaceFolder}/discord-pokemon-bot/.env",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}

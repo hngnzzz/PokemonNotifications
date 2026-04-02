@@ -2,6 +2,7 @@ import asyncio
 import os
 import re
 import traceback
+from pathlib import Path
 
 import aiohttp
 import discord
@@ -30,7 +31,8 @@ from item_logic import (
 )
 from models import ItemDetails, PokemonDetails
 
-load_dotenv()
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 DEBUG_SPAWN = os.getenv("DEBUG_SPAWN", "false").lower() == "true"
@@ -38,8 +40,11 @@ DEBUG_EVENTS = os.getenv("DEBUG_EVENTS", "false").lower() == "true"
 POKECORD_AUTHOR_ID = os.getenv("POKECORD_AUTHOR_ID", "").strip()
 DISCORD_GUILD_ID = os.getenv("DISCORD_GUILD_ID", "").strip()
 
-if not TOKEN:
+if not TOKEN or TOKEN == "your-discord-bot-token-here":
     raise ValueError("Chưa tìm thấy DISCORD_TOKEN trong file .env")
+
+if DISCORD_GUILD_ID and not DISCORD_GUILD_ID.isdigit():
+    raise ValueError("DISCORD_GUILD_ID phải là số nếu được khai báo trong file .env")
 
 
 class PokemonNotiBot(commands.Bot):
